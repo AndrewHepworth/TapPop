@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, ScrollView, TextInput} from 'react-native';
 
-const App = () => {
+const HelloWorld = ({navigation}) => {
   return (
     <ScrollView>
       <Text>Some text</Text>
@@ -25,3 +25,5 @@ const App = () => {
     </ScrollView>
   );
 };
+
+export default HelloWorld;
