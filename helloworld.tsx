@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, Image, ScrollView, TextInput} from 'react-native';
+import {View, Text, Image, ScrollView, TextInput, Button} from 'react-native';
 
-const HelloWorld = ({navigation}) => {
+const HelloWorld = ({route, navigation}) => {
+  const {name, age} = route.params;
   return (
     <ScrollView>
       <Text>Some text</Text>
@@ -21,6 +22,13 @@ const HelloWorld = ({navigation}) => {
           borderWidth: 1,
         }}
         defaultValue="You can type in me"
+      />
+      <Text>
+        Hello {name}, you are {age} years old
+      </Text>
+      <Button
+        title="Update the title"
+        onPress={() => navigation.setOptions({title: 'Updated!'})}
       />
     </ScrollView>
   );
