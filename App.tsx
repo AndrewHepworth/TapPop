@@ -6,16 +6,39 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HelloWorld from './helloworld';
 import LogoTitle from './logotitle';
 
+import ButtonPage from './buttonpage';
+import Animations from './animations';
+
 function HomeScreen({navigation}) {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View
+      style={{
+        margin: 5,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
       <Text>Home Screen</Text>
+      <View style={{margin: 5}}>
+        <Button
+          title="Go to Details"
+          onPress={() =>
+            navigation.navigate('HelloWorld', {name: 'Andrew', age: 27})
+          }
+        />
+      </View>
+
       <Button
-        title="Go to Details"
-        onPress={() =>
-          navigation.navigate('HelloWorld', {name: 'Andrew', age: 27})
-        }
+        title="Go to buttons"
+        onPress={() => navigation.navigate('ButtonPage')}
       />
+
+      <View style={{margin: 5}}>
+        <Button
+          title="Animations"
+          onPress={() => navigation.navigate('Animations')}
+        />
+      </View>
     </View>
   );
 }
@@ -48,6 +71,8 @@ function App() {
             title: route.params.name,
           })}
         />
+        <Stack.Screen name="ButtonPage" component={ButtonPage} />
+        <Stack.Screen name="Animations" component={Animations} />
       </Stack.Navigator>
     </NavigationContainer>
   );
