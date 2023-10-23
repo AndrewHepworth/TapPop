@@ -1,10 +1,6 @@
 import React from 'react';
 import {View, Animated, Easing} from 'react-native';
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-  State,
-} from 'react-native-gesture-handler';
+import {PanGestureHandler, State} from 'react-native-gesture-handler';
 
 export default class ExpandingCircle extends React.Component {
   scale: Animated.Value;
@@ -34,22 +30,19 @@ export default class ExpandingCircle extends React.Component {
   render() {
     const {scale} = this;
     return (
-      <GestureHandlerRootView>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <PanGestureHandler
-            onHandlerStateChange={this.handleGestureStateChange}>
-            <Animated.View
-              style={{
-                width: 100,
-                height: 100,
-                backgroundColor: 'blue',
-                borderRadius: 50,
-                transform: [{scale}],
-              }}
-            />
-          </PanGestureHandler>
-        </View>
-      </GestureHandlerRootView>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <PanGestureHandler onHandlerStateChange={this.handleGestureStateChange}>
+          <Animated.View
+            style={{
+              width: 100,
+              height: 100,
+              backgroundColor: 'blue',
+              borderRadius: 50,
+              transform: [{scale}],
+            }}
+          />
+        </PanGestureHandler>
+      </View>
     );
   }
 }

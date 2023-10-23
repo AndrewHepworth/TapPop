@@ -8,6 +8,7 @@ import LogoTitle from './logotitle';
 
 import ButtonPage from './buttonpage';
 import Animations from './animations';
+import ExpandingCircle from './expandanimations';
 
 function HomeScreen({navigation}) {
   return (
@@ -37,6 +38,12 @@ function HomeScreen({navigation}) {
         <Button
           title="Animations"
           onPress={() => navigation.navigate('Animations')}
+        />
+      </View>
+      <View style={{margin: 5}}>
+        <Button
+          title="Animation Two"
+          onPress={() => navigation.navigate('Animation2')}
         />
       </View>
     </View>
@@ -73,6 +80,7 @@ function App() {
         />
         <Stack.Screen name="ButtonPage" component={ButtonPage} />
         <Stack.Screen name="Animations" component={Animations} />
+        <Stack.Screen name="Animation2" component={ExpandingCircle} />
       </Stack.Navigator>
     </NavigationContainer>
   );
