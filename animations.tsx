@@ -1,55 +1,53 @@
-import React from 'react';
-import {View, Animated, Easing} from 'react-native';
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-  State,
-} from 'react-native-gesture-handler';
+import React, {useRef, useEffect} from 'react';
+import {Animated, Text, View} from 'react-native';
+import type {PropsWithChildren} from 'react';
+import type {ViewStyle} from 'react-native';
 
-export default class ExpandingCircle extends React.Component {
-  scale: Animated.Value;
+type FadeInViewProps = PropsWithChildren<{style: ViewStyle}>;
 
-  constructor(props: {}) {
-    super(props);
-    this.scale = new Animated.Value(1);
-  }
+const FadeInView: React.FC<FadeInViewProps> = props => {
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
 
-  handleGestureStateChange = (event: {nativeEvent: {state: State}}) => {
-    if (event.nativeEvent.state === State.END) {
-      Animated.timing(this.scale, {
-        toValue: 1,
-        duration: 300,
-        easing: Easing.elastic(2),
-        useNativeDriver: false,
-      }).start();
-    } else {
-      Animated.timing(this.scale, {
-        toValue: 2,
-        duration: 300,
-        useNativeDriver: false,
-      }).start();
-    }
-  };
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 10000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
-  render() {
-    const {scale} = this;
-    return (
-      <GestureHandlerRootView>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <PanGestureHandler
-            onHandlerStateChange={this.handleGestureStateChange}>
-            <Animated.View
-              style={{
-                width: 100,
-                height: 100,
-                backgroundColor: 'blue',
-                borderRadius: 50,
-                transform: [{scale}],
-              }}
-            />
-          </PanGestureHandler>
-        </View>
-      </GestureHandlerRootView>
-    );
-  }
-}
+  return (
+    <Animated.View // Special animatable View
+      style={{
+        ...props.style,
+        opacity: fadeAnim, // Bind opacity to animated value
+      }}>
+      {props.children}
+    </Animated.View>
+  );
+};
+
+// You can then use your `FadeInView` in place of a `View` in your components:
+const Animations = () => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <FadeInView
+        style={{
+          width: 250,
+          height: 50,
+          backgroundColor: 'powderblue',
+        }}>
+        <Text style={{fontSize: 28, textAlign: 'center', margin: 10}}>
+          Fading in
+        </Text>
+      </FadeInView>
+    </View>
+  );
+};
+
+export default Animations;
