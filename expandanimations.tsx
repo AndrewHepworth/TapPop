@@ -5,11 +5,17 @@ import {PanGestureHandler, State} from 'react-native-gesture-handler';
 type ExpandingCircleProps = PropsWithChildren<{style: ViewStyle}>;
 const ExpandingCircle: React.FC<ExpandingCircleProps> = props => {
   const scale = useRef(new Animated.Value(0)).current;
+
+  const size = scale.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 80],
+  });
+
   useEffect(() => {
     Animated.timing(scale, {
       toValue: 1,
-      duration: 300,
-      easing: Easing.elastic(2),
+      duration: 2400,
+      // easing: Easing.elastic(2),
       useNativeDriver: false,
     }).start();
   });
@@ -18,8 +24,8 @@ const ExpandingCircle: React.FC<ExpandingCircleProps> = props => {
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Animated.View
         style={{
-          width: 100,
-          height: 100,
+          width: size,
+          height: size,
           backgroundColor: 'blue',
           borderRadius: 50,
           transform: [{scale}],
