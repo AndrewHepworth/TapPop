@@ -1,8 +1,10 @@
 import React, {PropsWithChildren, useEffect, useRef} from 'react';
-import {View, Animated, Easing, ViewStyle} from 'react-native';
+import {View, Animated, Easing, ViewStyle, Text} from 'react-native';
 import {PanGestureHandler, State} from 'react-native-gesture-handler';
 
+// type ExpandingCircleProps = PropsWithChildren<{style: ViewStyle}>;
 type ExpandingCircleProps = PropsWithChildren<{style: ViewStyle}>;
+
 const ExpandingCircle: React.FC<ExpandingCircleProps> = props => {
   const scale = useRef(new Animated.Value(0)).current;
 
@@ -15,13 +17,18 @@ const ExpandingCircle: React.FC<ExpandingCircleProps> = props => {
     Animated.timing(scale, {
       toValue: 1,
       duration: 2400,
-      // easing: Easing.elastic(2),
       useNativeDriver: false,
     }).start();
   });
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      style={{
+        ...props.style,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
       <Animated.View
         style={{
           width: size,
@@ -35,49 +42,26 @@ const ExpandingCircle: React.FC<ExpandingCircleProps> = props => {
   );
 };
 
-export default ExpandingCircle;
+const ExpandingCircleWrapper = () => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <ExpandingCircle
+        style={{
+          width: 250,
+          height: 50,
+          backgroundColor: 'powderblue',
+        }}>
+        <Text style={{fontSize: 28, textAlign: 'center', margin: 10}}>
+          Fading in
+        </Text>
+      </ExpandingCircle>
+    </View>
+  );
+};
 
-// export default class ExpandingCircle extends React.Component {
-//   scale: Animated.Value;
-
-//   constructor(props: {}) {
-//     super(props);
-//     this.scale = new Animated.Value(1);
-//   }
-
-//   handleGestureStateChange = (event: {nativeEvent: {state: State}}) => {
-//     if (event.nativeEvent.state === State.END) {
-//       Animated.timing(this.scale, {
-//         toValue: 1,
-//         duration: 300,
-//         easing: Easing.elastic(2),
-//         useNativeDriver: false,
-//       }).start();
-//     } else {
-//       Animated.timing(this.scale, {
-//         toValue: 2,
-//         duration: 300,
-//         useNativeDriver: false,
-//       }).start();
-//     }
-//   };
-
-//   render() {
-//     const {scale} = this;
-//     return (
-//       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-//         <PanGestureHandler onHandlerStateChange={this.handleGestureStateChange}>
-//           <Animated.View
-//             style={{
-//               width: 100,
-//               height: 100,
-//               backgroundColor: 'blue',
-//               borderRadius: 50,
-//               transform: [{scale}],
-//             }}
-//           />
-//         </PanGestureHandler>
-//       </View>
-//     );
-//   }
-// }
+export default ExpandingCircleWrapper;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, ScrollView, TextInput, Button} from 'react-native';
 
-const HelloWorld = ({route, navigation}) => {
+const HelloWorld = ({route, navigation}): React.JSX.Element => {
   const {name, age} = route.params;
   return (
     <ScrollView>
