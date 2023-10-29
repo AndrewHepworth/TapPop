@@ -9,6 +9,7 @@ import LogoTitle from './logotitle';
 import ButtonPage from './buttonpage';
 import Animations from './animations';
 import ExpandingCircleWrapper from './expandanimations';
+import EventResponderWrapper from './eventresponder';
 
 function HomeScreen({navigation}) {
   return (
@@ -87,7 +88,7 @@ function App() {
         <Stack.Screen name="ButtonPage" component={ButtonPage} />
         <Stack.Screen name="Animations" component={Animations} />
         <Stack.Screen name="Animation2" component={ExpandingCircleWrapper} />
-        <Stack.Screen name="Animation3" component={ExpandingCircleWrapper} />
+        <Stack.Screen name="Animation3" component={EventResponderWrapper} />
       </Stack.Navigator>
     </NavigationContainer>
   );
