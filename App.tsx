@@ -10,6 +10,7 @@ import ButtonPage from './buttonpage';
 import Animations from './animations';
 import ExpandingCircleWrapper from './expandanimations';
 import EventResponderWrapper from './eventresponder';
+import MovieList from './networkexample';
 
 function HomeScreen({navigation}) {
   return (
@@ -53,6 +54,7 @@ function HomeScreen({navigation}) {
           onPress={() => navigation.navigate('Animation3')}
         />
       </View>
+      <View style={{margin: 5}}>{/* <MovieList /> */}</View>
     </View>
   );
 }
